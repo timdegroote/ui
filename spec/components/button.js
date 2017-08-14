@@ -9,16 +9,49 @@ const ButtonTest = () => (
   <section>
     <h2>Buttons</h2>
 
+    <h3>Different button types</h3>
+    <p>
+      <Button primary>Primary</Button>&nbsp;
+      <Button secondary bordered>Secondary</Button>&nbsp;
+      <Button secondary bordered>Secondary bordered</Button>
+    </p>
+
+    <h3>Different button sizes</h3>
+    <p>
+      <Button primary>Small</Button>&nbsp;
+      <Button primary medium>Medium</Button>&nbsp;
+      <Button primary large>Large</Button>
+    </p>
+    <p>
+      <Button primary icon="search">Small</Button>&nbsp;
+      <Button primary medium icon="search">Medium</Button>&nbsp;
+      <Button primary large icon="search">Large</Button>
+    </p>
+    <p>
+      <Button secondary bordered>Small</Button>&nbsp;
+      <Button secondary medium bordered>Medium</Button>&nbsp;
+      <Button secondary large bordered>Large</Button>
+    </p>
+    <h3>Icon only</h3>
+    <p>
+      <Button primary icon="search" />&nbsp;
+      <Button primary medium icon="search" />&nbsp;
+      <Button primary large icon="search" />
+    </p>
     <p>
       <Button primary onMouseUp={handleItemClick}>Primary</Button>&nbsp;
       <Button primary icon="search">Primary with icon</Button>&nbsp;
       <Button primary icon="search" />
     </p>
+
+    <h3>Processing</h3>
     <p>
       <Button primary processing>Primary processing</Button>&nbsp;
       <Button primary processing icon="search">Primary processing with icon</Button>&nbsp;
       <Button primary processing />
     </p>
+
+    <h3>Disabled</h3>
     <p>
       <Button primary disabled>Primary  disabled</Button>&nbsp;
       <Button primary disabled icon="search">Primary disabled with icon</Button>&nbsp;
