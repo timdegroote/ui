@@ -12,7 +12,7 @@ const ButtonTest = () => (
     <h3>Different button types</h3>
     <p>
       <Button primary>Primary</Button>&nbsp;
-      <Button secondary bordered>Secondary</Button>&nbsp;
+      <Button secondary>Secondary</Button>&nbsp;
       <Button secondary bordered>Secondary bordered</Button>
     </p>
 
