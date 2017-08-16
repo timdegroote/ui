@@ -21,6 +21,7 @@ class Button extends Component {
     onMouseLeave: PropTypes.func,
     onMouseUp: PropTypes.func,
     primary: PropTypes.bool,
+    secondary: PropTypes.bool,
     processing: PropTypes.bool,
     theme: PropTypes.shape({
       button: PropTypes.string,
@@ -40,6 +41,7 @@ class Button extends Component {
     className: '',
     bordered: false,
     primary: false,
+    secondary: false,
     processing: false,
     small: true,
     medium: false,
@@ -51,6 +53,12 @@ class Button extends Component {
     if (this.props.primary) {
       return 'primary';
     }
+
+    if (this.props.secondary) {
+      return 'secondary';
+    }
+
+    // default fallback, secondary for now
     return 'secondary';
   };
 
@@ -102,7 +110,7 @@ class Button extends Component {
       ...others
     } = this.props;
 
-    const rest = omit(others, [ 'primary', 'bordered', 'small', 'medium', 'large' ]);
+    const rest = omit(others, [ 'primary', 'secondary', 'bordered', 'small', 'medium', 'large' ]);
 
     const element = href ? 'a' : 'button';
     const level = this.getLevel();
