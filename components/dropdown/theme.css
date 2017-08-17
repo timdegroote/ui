@@ -1,0 +1,105 @@
+@import '../colors.css';
+@import '../variables.css';
+
+:root {
+  --dropdown-text-color: var(--palette-bluewood-lighter);
+  --dropdown-border-color: #E5E5E5; /* @todo use variable (correct color not available yet) */
+  --dropdown-border-size: calc(.2 * var(--unit));
+  --dropdown-font-size: calc(1.6 * var(--unit)); /* @todo use font-size variable from variables.css? 16px doesn't exist yet */
+
+  --dropdown-input-border-radius: calc(.4 * var(--unit));
+  --dropdown-input-placeholder-color: var(--palette-grey-500);
+  --dropdown-input-color: var(--palette-bluewood-lighter);
+  --dropdown-input-focused-color: var(--palette-bluewood);
+
+  --dropdown-list-shadow: 0 30px 40px 0 rgba(70,86,104,.3);
+  --dropdown-list-item-padding: calc(1.5 * var(--unit));
+  --dropdown-list-item-selected-background: var(--palette-grey-100);
+  --dropdown-list-item-image-size: calc(3.2 * var(--unit));
+  --dropdown-list-item-image-margin: var(--unit);
+  --dropdown-list-item-subtitle-color: #979797; /* @todo use variable (correct color not available yet) */
+  --dropdown-list-item-subtitle-font-size: var(--font-size-small);
+}
+
+.container {
+  color: var(--dropdown-text-color);
+  font-size: var(--dropdown-font-size);
+  position: relative;
+}
+
+.input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: .5em .55em;
+  border: var(--dropdown-border-size) solid var(--dropdown-border-color);
+  border-radius: var(--dropdown-input-border-radius);
+  font-size: 1em;
+  color: var(--dropdown-input-color);
+
+  &:focus {
+    outline: none;
+    color: var(--dropdown-input-focused-color);
+  }
+
+  &::placeholder {
+    color: var(--dropdown-input-placeholder-color);
+  }
+}
+
+.list-container {
+  box-sizing: border-box;
+  width: 100%;
+  position: absolute;
+  background: var(--color-white);
+  border: var(--dropdown-border-size) solid var(--dropdown-border-color);
+  box-shadow: var(--dropdown-list-shadow);
+  margin-top: calc((-1 * var(--dropdown-input-border-radius)) + var(--dropdown-border-size));
+  z-index: 10; /* @todo use z-index variables? */
+}
+
+.list-item {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  border-bottom: 1px solid var(--dropdown-border-color);
+  padding: var(--dropdown-list-item-padding);
+  cursor: pointer;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .image {
+    display: block;
+    width: var(--dropdown-list-item-image-size);
+    height: var(--dropdown-list-item-image-size);
+    border-radius: var(--dropdown-list-item-image-size);
+    overflow: hidden;
+    margin-right: var(--dropdown-list-item-image-margin);
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .label {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .title {
+    flex: 1;
+  }
+
+  .subtitle {
+    flex: 1;
+    color: var(--dropdown-list-item-subtitle-color);
+    font-size: var(--dropdown-list-item-subtitle-font-size);
+  }
+
+  &:hover,
+  &.selected {
+    background: var(--dropdown-list-item-selected-background);
+  }
+}

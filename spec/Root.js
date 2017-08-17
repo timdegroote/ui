@@ -12,6 +12,7 @@ import PopoverVertical from './components/popoverVertical';
 import PopoverHorizontal from './components/popoverHorizontal';
 import LoadingMolecule from './components/loadingMolecule';
 import Toast from './components/toast';
+import Dropdown from './components/dropdown';
 
 const Root = () => (
   <div className={s.root}>
@@ -20,6 +21,9 @@ const Root = () => (
       <h1>Teamleader UI v{__VERSION__}</h1>
       {__DEV__}
 
+      <Section id="drop-downs">
+        <Dropdown />
+      </Section>
       <Section id="buttons">
         <Button />
       </Section>
