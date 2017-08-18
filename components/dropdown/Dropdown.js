@@ -85,6 +85,7 @@ class DropDown extends Component {
       }
       break;
     }
+
     case keys.UP: {
       event.preventDefault();
       const selectedListItemIndex = this.state.selectedListItemIndex - 1;
@@ -92,6 +93,21 @@ class DropDown extends Component {
         this.setState({
           selectedListItemIndex,
         });
+      }
+      break;
+    }
+
+    case keys.RETURN: {
+      event.preventDefault();
+      const selectedListItemIndex = this.state.selectedListItemIndex;
+      if (selectedListItemIndex > -1) {
+        const listItem = this.getListItemByIndex(selectedListItemIndex);
+        if (!listItem) {
+          return;
+        }
+
+        this.submitListItem(listItem);
+        this.refs.input.blur();
       }
       break;
     }
@@ -114,8 +130,17 @@ class DropDown extends Component {
 
   submitListItem (listItem) {
     this.setState({
-      inputValue: listItem.title || listItem.value
+      inputValue: listItem.title || listItem.value,
+      selectedListItemIndex: -1,
     });
+  }
+
+  getListItemByIndex (index) {
+    if (typeof this.props.listItems[index] === 'undefined') {
+      return null;
+    }
+
+    return this.props.listItems[index];
   }
 
   renderList () {
@@ -189,6 +214,7 @@ class DropDown extends Component {
     return (
       <div className={cx(theme.container, className)}>
         <input
+          ref="input"
           className={theme.input}
           type="text"
           value={inputValue}
