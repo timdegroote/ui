@@ -34,14 +34,17 @@ class DropDown extends Component {
   state = {
     active: true,
     selectedListItemIndex: -1,
+    inputValue: '',
   };
 
   constructor () {
     super(...arguments);
     this.handleInputFocus = ::this.handleInputFocus;
     this.handleInputBlur = ::this.handleInputBlur;
+    this.handleInputChange = ::this.handleInputChange;
     this.handleInputKeyDown = ::this.handleInputKeyDown;
     this.handleListItemMouseEnter = ::this.handleListItemMouseEnter;
+    this.handleListItemMouseDown = ::this.handleListItemMouseDown;
   }
 
   handleInputFocus () {
@@ -61,6 +64,12 @@ class DropDown extends Component {
 
     this.setState({
       active: false,
+    });
+  }
+
+  handleInputChange (event) {
+    this.setState({
+      inputValue: event.target.value,
     });
   }
 
@@ -99,6 +108,16 @@ class DropDown extends Component {
     });
   }
 
+  handleListItemMouseDown (listItem) {
+    this.submitListItem(listItem);
+  }
+
+  submitListItem (listItem) {
+    this.setState({
+      inputValue: listItem.title || listItem.value
+    });
+  }
+
   renderList () {
     if (!this.props.listItems) {
       return this.renderEmptyList();
@@ -129,7 +148,12 @@ class DropDown extends Component {
     });
 
     return (
-      <div className={classNames} key={value} onMouseEnter={() => this.handleListItemMouseEnter(index)}>
+      <div
+        className={classNames}
+        key={value}
+        onMouseEnter={() => this.handleListItemMouseEnter(index)}
+        onMouseDown={() => this.handleListItemMouseDown(listItem)}
+      >
         {image &&
         <div className={theme.image}>
           <img src={image} />
@@ -159,6 +183,7 @@ class DropDown extends Component {
 
     const {
       active,
+      inputValue,
     } = this.state;
 
     return (
@@ -166,9 +191,11 @@ class DropDown extends Component {
         <input
           className={theme.input}
           type="text"
+          value={inputValue}
           placeholder={placeholder}
           onFocus={this.handleInputFocus}
           onBlur={this.handleInputBlur}
+          onChange={this.handleInputChange}
           onKeyDown={this.handleInputKeyDown}
         />
         {active &&
