@@ -27,6 +27,8 @@ class DropdownTest extends React.Component {
     },
   ];
 
+  listItems = [];
+
   render () {
     return (
       <div>
@@ -36,6 +38,7 @@ class DropdownTest extends React.Component {
           initialValue="4"
           initialInputValue="Tom Haverford"
           listItems={this.listItems}
+          emptyListLabel="No results found"
         />
       </div>
     );

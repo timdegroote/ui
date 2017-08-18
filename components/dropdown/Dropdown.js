@@ -27,6 +27,7 @@ class DropDown extends Component {
     name: PropTypes.string,
     initialValue: PropTypes.string,
     initialInputValue: PropTypes.string,
+    emptyListLabel: PropTypes.string.isRequired,
   };
 
   static defaultProps = {
@@ -152,7 +153,7 @@ class DropDown extends Component {
   }
 
   renderList () {
-    if (!this.props.listItems) {
+    if (!this.props.listItems || this.props.listItems.length === 0) {
       return this.renderEmptyList();
     }
 
@@ -204,7 +205,18 @@ class DropDown extends Component {
   }
 
   renderEmptyList () {
-    return 'empty list';
+    const {
+      theme,
+      emptyListLabel,
+    } = this.props;
+
+    const classNames = cx(theme['list-item'], theme['empty']);
+
+    return(
+      <div className={classNames}>
+        <div className={theme.subtitle}>{emptyListLabel}</div>
+      </div>
+    );
   }
 
   render () {

@@ -102,4 +102,9 @@
   &.selected {
     background: var(--dropdown-list-item-selected-background);
   }
+
+  &.empty {
+    cursor: default;
+    pointer-events: none;
+  }
 }
