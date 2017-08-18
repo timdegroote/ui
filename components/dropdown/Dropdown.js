@@ -28,6 +28,10 @@ class DropDown extends Component {
     initialValue: PropTypes.string,
     initialInputValue: PropTypes.string,
     emptyListLabel: PropTypes.string.isRequired,
+    action: PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      callback: PropTypes.func.isRequired,
+    }),
   };
 
   static defaultProps = {
@@ -212,9 +216,22 @@ class DropDown extends Component {
 
     const classNames = cx(theme['list-item'], theme['empty']);
 
-    return(
+    return (
       <div className={classNames}>
         <div className={theme.subtitle}>{emptyListLabel}</div>
+      </div>
+    );
+  }
+
+  renderAction() {
+    const {
+      action,
+      theme,
+    } = this.props;
+
+    return (
+      <div className={theme.action} onMouseDown={action.callback}>
+        {action.label}
       </div>
     );
   }
@@ -225,6 +242,7 @@ class DropDown extends Component {
       className,
       theme,
       placeholder,
+      action,
     } = this.props;
 
     const {
@@ -250,6 +268,11 @@ class DropDown extends Component {
         {active &&
         <div className={theme['list-container']}>
           {this.renderList()}
+          {action &&
+            <div>
+              {this.renderAction()}
+            </div>
+          }
         </div>
         }
       </div>

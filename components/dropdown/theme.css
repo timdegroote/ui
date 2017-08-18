@@ -19,6 +19,12 @@
   --dropdown-list-item-image-margin: var(--unit);
   --dropdown-list-item-subtitle-color: #979797; /* @todo use variable (correct color not available yet) */
   --dropdown-list-item-subtitle-font-size: var(--font-size-small);
+
+  --dropdown-list-action-padding: calc(1.5 * var(--unit));
+  --dropdown-list-action-font-size: var(--font-size-small);
+  --dropdown-list-action-color: var(--palette-blue-lighter);
+  --dropdown-list-action-background-color: var(--color-white);
+  --dropdown-list-action-background-hover-color: var(--dropdown-list-item-selected-background);
 }
 
 .container {
@@ -106,5 +112,19 @@
   &.empty {
     cursor: default;
     pointer-events: none;
+  }
+}
+
+.action {
+  padding: var(--dropdown-list-action-padding);
+  background: var(--dropdown-list-action-background-color);
+  border-top: 1px solid var(--dropdown-border-color);
+  color: var(--dropdown-list-action-color);
+  font-size: var(--dropdown-list-action-font-size);
+  cursor: pointer;
+
+
+  &:hover {
+    background: var(--dropdown-list-action-background-hover-color);
   }
 }
