@@ -24,6 +24,9 @@ class DropDown extends Component {
     placeholder: PropTypes.string,
     theme: PropTypes.object,
     className: PropTypes.string,
+    name: PropTypes.string,
+    initialValue: PropTypes.string,
+    initialInputValue: PropTypes.string,
   };
 
   static defaultProps = {
@@ -34,10 +37,11 @@ class DropDown extends Component {
   state = {
     active: true,
     selectedListItemIndex: -1,
+    value: '',
     inputValue: '',
   };
 
-  constructor () {
+  constructor (props) {
     super(...arguments);
     this.handleInputFocus = ::this.handleInputFocus;
     this.handleInputBlur = ::this.handleInputBlur;
@@ -45,6 +49,9 @@ class DropDown extends Component {
     this.handleInputKeyDown = ::this.handleInputKeyDown;
     this.handleListItemMouseEnter = ::this.handleListItemMouseEnter;
     this.handleListItemMouseDown = ::this.handleListItemMouseDown;
+
+    this.state.value = props.initialValue;
+    this.state.inputValue = props.initialInputValue;
   }
 
   handleInputFocus () {
@@ -130,6 +137,7 @@ class DropDown extends Component {
 
   submitListItem (listItem) {
     this.setState({
+      value: listItem.value,
       inputValue: listItem.title || listItem.value,
       selectedListItemIndex: -1,
     });
@@ -201,6 +209,7 @@ class DropDown extends Component {
 
   render () {
     const {
+      name,
       className,
       theme,
       placeholder,
@@ -208,11 +217,13 @@ class DropDown extends Component {
 
     const {
       active,
+      value,
       inputValue,
     } = this.state;
 
     return (
       <div className={cx(theme.container, className)}>
+        <input type="hidden" name={name} value={value} onChange={() => {}} />
         <input
           ref="input"
           className={theme.input}

@@ -33,6 +33,8 @@ class DropdownTest extends React.Component {
         <h2>DropDowns</h2>
         <Dropdown
           placeholder="Select a customer"
+          initialValue="4"
+          initialInputValue="Tom Haverford"
           listItems={this.listItems}
         />
       </div>
