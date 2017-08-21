@@ -99,6 +99,7 @@ class DropDown extends Component {
     this.setState({
       active: false,
       inputValue: '',
+      selectedListItemIndex: -1,
     });
   }
 
