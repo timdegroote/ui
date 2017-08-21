@@ -26,7 +26,7 @@ class DropDown extends Component {
     className: PropTypes.string,
     name: PropTypes.string,
     initialValue: PropTypes.string,
-    initialInputValue: PropTypes.string,
+    initialValueText: PropTypes.string,
     emptyListLabel: PropTypes.string.isRequired,
     action: PropTypes.shape({
       label: PropTypes.string.isRequired,
@@ -43,11 +43,13 @@ class DropDown extends Component {
     active: true,
     selectedListItemIndex: -1,
     value: '',
+    valueText: '',
     inputValue: '',
   };
 
   constructor (props) {
     super(...arguments);
+    this.handleButtonClick = ::this.handleButtonClick;
     this.handleInputFocus = ::this.handleInputFocus;
     this.handleInputBlur = ::this.handleInputBlur;
     this.handleInputChange = ::this.handleInputChange;
@@ -56,7 +58,26 @@ class DropDown extends Component {
     this.handleListItemMouseDown = ::this.handleListItemMouseDown;
 
     this.state.value = props.initialValue;
-    this.state.inputValue = props.initialInputValue;
+    this.state.valueText = props.initialValueText;
+  }
+
+  handleButtonClick () {
+    const active = this.state.active;
+
+    this.setState({
+      active: !active,
+    });
+
+    if (!active) {
+      setTimeout(() => {
+        this.refs.input.focus();
+      });
+    } else {
+      // we also want it to do the blur action,
+      // because if we "deactivate" the dropdown (e.g. by clicking the button),
+      // it will not render the input field anymore and it doesn't trigger a blur event either
+      this.handleInputBlur();
+    }
   }
 
   handleInputFocus () {
@@ -76,6 +97,7 @@ class DropDown extends Component {
 
     this.setState({
       active: false,
+      inputValue: '',
     });
   }
 
@@ -143,7 +165,7 @@ class DropDown extends Component {
   submitListItem (listItem) {
     this.setState({
       value: listItem.value,
-      inputValue: listItem.title || listItem.value,
+      valueText: listItem.title || listItem.value,
       selectedListItemIndex: -1,
     });
   }
@@ -203,7 +225,6 @@ class DropDown extends Component {
           <span className={theme.subtitle}>{subtitle}</span>
           }
         </div>
-
       </div>
     );
   }
@@ -248,31 +269,36 @@ class DropDown extends Component {
     const {
       active,
       value,
+      valueText,
       inputValue,
     } = this.state;
 
     return (
       <div className={cx(theme.container, className)}>
         <input type="hidden" name={name} value={value} onChange={() => {}} />
-        <input
-          ref="input"
-          className={theme.input}
-          type="text"
-          value={inputValue}
-          placeholder={placeholder}
-          onFocus={this.handleInputFocus}
-          onBlur={this.handleInputBlur}
-          onChange={this.handleInputChange}
-          onKeyDown={this.handleInputKeyDown}
-        />
+        <a className={theme.button} onMouseDown={this.handleButtonClick}>{valueText || placeholder}</a>
         {active &&
-        <div className={theme['list-container']}>
-          {this.renderList()}
-          {action &&
-            <div>
-              {this.renderAction()}
-            </div>
-          }
+        <div className={theme.dropdown}>
+          <div className={theme['input-container']}>
+            <input
+              ref="input"
+              className={theme.input}
+              type="text"
+              value={inputValue}
+              onFocus={this.handleInputFocus}
+              onBlur={this.handleInputBlur}
+              onChange={this.handleInputChange}
+              onKeyDown={this.handleInputKeyDown}
+            />
+          </div>
+          <div className={theme['list-container']}>
+            {this.renderList()}
+            {action &&
+              <div>
+                {this.renderAction()}
+              </div>
+            }
+          </div>
         </div>
         }
       </div>

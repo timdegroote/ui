@@ -7,10 +7,14 @@
   --dropdown-border-size: calc(.2 * var(--unit));
   --dropdown-font-size: calc(1.6 * var(--unit)); /* @todo use font-size variable from variables.css? 16px doesn't exist yet */
 
+  --dropdown-button-color: var(--palette-bluewood-lighter);
+
   --dropdown-input-border-radius: calc(.4 * var(--unit));
+  --dropdown-input-margin: var(--unit);
   --dropdown-input-placeholder-color: var(--palette-grey-500);
   --dropdown-input-color: var(--palette-bluewood-lighter);
   --dropdown-input-focused-color: var(--palette-bluewood);
+  --dropdown-input-focused-border-color: #979797; /* @todo use variable (correct color not available yet) */
 
   --dropdown-list-shadow: 0 30px 40px 0 rgba(70,86,104,.3);
   --dropdown-list-item-padding: calc(1.5 * var(--unit));
@@ -33,6 +37,35 @@
   position: relative;
 }
 
+.button {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 100%;
+  padding: .5em .55em;
+  border: var(--dropdown-border-size) solid var(--dropdown-border-color);
+  border-radius: var(--dropdown-input-border-radius);
+  font-size: 1em;
+  color: var(--dropdown-button-color);
+  cursor: pointer;
+  user-select: none;
+}
+
+.dropdown {
+  box-sizing: border-box;
+  width: 100%;
+  position: absolute;
+  background: var(--color-white);
+  border: var(--dropdown-border-size) solid var(--dropdown-border-color);
+  box-shadow: var(--dropdown-list-shadow);
+  margin-top: calc((-1 * var(--dropdown-input-border-radius)) + var(--dropdown-border-size));
+  z-index: 10; /* @todo use z-index variables? */
+}
+
+.input-container {
+  padding: var(--dropdown-input-margin);
+  border-bottom: 1px solid var(--dropdown-border-color);
+}
+
 .input {
   box-sizing: border-box;
   width: 100%;
@@ -45,22 +78,8 @@
   &:focus {
     outline: none;
     color: var(--dropdown-input-focused-color);
+    border-color: var(--dropdown-input-focused-border-color);
   }
-
-  &::placeholder {
-    color: var(--dropdown-input-placeholder-color);
-  }
-}
-
-.list-container {
-  box-sizing: border-box;
-  width: 100%;
-  position: absolute;
-  background: var(--color-white);
-  border: var(--dropdown-border-size) solid var(--dropdown-border-color);
-  box-shadow: var(--dropdown-list-shadow);
-  margin-top: calc((-1 * var(--dropdown-input-border-radius)) + var(--dropdown-border-size));
-  z-index: 10; /* @todo use z-index variables? */
 }
 
 .list-item {

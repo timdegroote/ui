@@ -41,7 +41,7 @@ class DropdownTest extends React.Component {
         <Dropdown
           placeholder="Select a customer"
           initialValue="4"
-          initialInputValue="Tom Haverford"
+          initialValueText="Tom Haverford"
           listItems={this.listItems}
           emptyListLabel="No results found"
           action={this.action}
