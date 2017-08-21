@@ -43,8 +43,8 @@ class DropDown extends Component {
   state = {
     active: true,
     selectedListItemIndex: -1,
-    value: '',
-    valueText: '',
+    value: undefined,
+    valueText: undefined,
     inputValue: '',
   };
 
@@ -275,11 +275,17 @@ class DropDown extends Component {
       inputValue,
     } = this.state;
 
+    const hasValue = value !== undefined;
+
+    const buttonClassNames = cx(theme.button, {
+      [theme.placeholder]: !hasValue,
+    });
+
     return (
       <div className={cx(theme.container, className)}>
         <input type="hidden" name={name} value={value} onChange={() => {}} />
-        <a className={theme.button} onMouseDown={this.handleButtonClick}>
-          {valueText || placeholder}
+        <a className={buttonClassNames} onMouseDown={this.handleButtonClick}>
+          {hasValue ? (valueText || value) : placeholder}
           <span className={theme.arrow}><FontIcon className={theme.icon} value="chevron_down" /></span>
         </a>
         {active &&

@@ -11,10 +11,10 @@
   --dropdown-button-arrow-width: calc(3.4 * var(--unit));
   --dropdown-button-arrow-background: var(--palette-grey-100);
   --dropdown-button-arrow-icon-font-size: calc(1.6 * var(--unit));
+  --dropdown-button-placeholder-color: #979797; /* @todo use variable (correct color not available yet) */
 
   --dropdown-input-border-radius: calc(.4 * var(--unit));
   --dropdown-input-margin: var(--unit);
-  --dropdown-input-placeholder-color: var(--palette-grey-500);
   --dropdown-input-color: var(--palette-bluewood-lighter);
   --dropdown-input-focused-color: var(--palette-bluewood);
   --dropdown-input-focused-border-color: #979797; /* @todo use variable (correct color not available yet) */
@@ -52,6 +52,10 @@
   cursor: pointer;
   user-select: none;
   position: relative;
+
+  &.placeholder {
+    color: var(--dropdown-button-placeholder-color);
+  }
 
   .arrow {
     display: flex;
