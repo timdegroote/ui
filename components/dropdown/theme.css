@@ -8,6 +8,9 @@
   --dropdown-font-size: calc(1.6 * var(--unit)); /* @todo use font-size variable from variables.css? 16px doesn't exist yet */
 
   --dropdown-button-color: var(--palette-bluewood-lighter);
+  --dropdown-button-arrow-width: calc(3.4 * var(--unit));
+  --dropdown-button-arrow-background: var(--palette-grey-100);
+  --dropdown-button-arrow-icon-font-size: calc(1.6 * var(--unit));
 
   --dropdown-input-border-radius: calc(.4 * var(--unit));
   --dropdown-input-margin: var(--unit);
@@ -48,6 +51,25 @@
   color: var(--dropdown-button-color);
   cursor: pointer;
   user-select: none;
+  position: relative;
+
+  .arrow {
+    display: flex;
+    width: var(--dropdown-button-arrow-width);
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--dropdown-button-arrow-background);
+    border-left: var(--dropdown-border-size) solid var(--dropdown-border-color);
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+
+    .icon {
+      font-size: var(--dropdown-button-arrow-icon-font-size);
+    }
+  }
 }
 
 .dropdown {

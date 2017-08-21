@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import FontIcon from '../font_icon';
 
 const keys = {
   DOWN: 40,
@@ -276,7 +277,10 @@ class DropDown extends Component {
     return (
       <div className={cx(theme.container, className)}>
         <input type="hidden" name={name} value={value} onChange={() => {}} />
-        <a className={theme.button} onMouseDown={this.handleButtonClick}>{valueText || placeholder}</a>
+        <a className={theme.button} onMouseDown={this.handleButtonClick}>
+          {valueText || placeholder}
+          <span className={theme.arrow}><FontIcon className={theme.icon} value="chevron_down" /></span>
+        </a>
         {active &&
         <div className={theme.dropdown}>
           <div className={theme['input-container']}>
