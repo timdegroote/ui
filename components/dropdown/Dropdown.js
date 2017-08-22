@@ -12,7 +12,7 @@ const keys = {
   ESCAPE: 27,
 };
 
-class DropDown extends Component {
+class Dropdown extends Component {
   static propTypes = {
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
@@ -317,5 +317,5 @@ class DropDown extends Component {
   }
 }
 
-export default DropDown;
-export { DropDown };
+export default Dropdown;
+export { Dropdown };
