@@ -113,23 +113,30 @@ class Dropdown extends Component {
     switch (event.keyCode) {
     case keys.DOWN: {
       event.preventDefault();
-      const selectedListItemIndex = this.state.selectedListItemIndex + 1;
-      if (selectedListItemIndex < this.props.listItems.length) {
-        this.setState({
-          selectedListItemIndex,
-        });
+
+      let selectedListItemIndex = this.state.selectedListItemIndex + 1;
+      if (selectedListItemIndex >= this.props.listItems.length) {
+        selectedListItemIndex = 0;
       }
+
+      this.setState({
+        selectedListItemIndex,
+      });
+
       break;
     }
 
     case keys.UP: {
       event.preventDefault();
-      const selectedListItemIndex = this.state.selectedListItemIndex - 1;
-      if (selectedListItemIndex >= -1) {
-        this.setState({
-          selectedListItemIndex,
-        });
+      let selectedListItemIndex = this.state.selectedListItemIndex - 1;
+      if (selectedListItemIndex <= -1) {
+        selectedListItemIndex = this.props.listItems.length - 1;
       }
+
+      this.setState({
+        selectedListItemIndex,
+      });
+
       break;
     }
 
