@@ -56,6 +56,7 @@ class Dropdown extends Component {
     this.handleInputChange = ::this.handleInputChange;
     this.handleInputKeyDown = ::this.handleInputKeyDown;
     this.handleListItemMouseEnter = ::this.handleListItemMouseEnter;
+    this.handleListItemMouseLeave = ::this.handleListItemMouseLeave;
     this.handleListItemMouseDown = ::this.handleListItemMouseDown;
 
     this.state.value = props.initialValue;
@@ -167,6 +168,18 @@ class Dropdown extends Component {
     });
   }
 
+  handleListItemMouseLeave (index) {
+    setTimeout(() => {
+      if (index !== this.state.selectedListItemIndex) {
+        return;
+      }
+
+      this.setState({
+        selectedListItemIndex: -1,
+      });
+    });
+  }
+
   handleListItemMouseDown (listItem) {
     this.submitListItem(listItem);
   }
@@ -221,6 +234,7 @@ class Dropdown extends Component {
         className={classNames}
         key={value}
         onMouseEnter={() => this.handleListItemMouseEnter(index)}
+        onMouseLeave={() => this.handleListItemMouseLeave(index)}
         onMouseDown={() => this.handleListItemMouseDown(listItem)}
       >
         {image &&
