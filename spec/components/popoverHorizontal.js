@@ -1,13 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { PopoverHorizontal } from '../../components/popover/';
+import { RadioGroup, RadioButton } from '../../components/radio';
 import Button from '../../components/button';
 
 class PopoverHorizontalTest extends React.Component {
   state = {
     active: false,
+    backdrop: 'dark',
     direction: 'west',
     position: 'middle',
+    subtitle:'',
+    title: 'My awesome Horizontal Popover',
   };
 
   componentDidMount () {
@@ -15,8 +19,28 @@ class PopoverHorizontalTest extends React.Component {
     this.forceUpdate();
   }
 
+  handleBackdropChange = (value) => {
+    this.setState({ backdrop: value });
+  };
+
+  handleTitleChange = (event) => {
+    this.setState({ title: event.target.value });
+  };
+
+  handleSubtitleChange = (event) => {
+    this.setState({ subtitle: event.target.value });
+  };
+
   handleToggle = () => {
     this.setState({ active: !this.state.active });
+  };
+
+  handleDirectionChange = (value) => {
+    this.setState({ direction: value });
+  };
+
+  handlePositionChange = (value) => {
+    this.setState({ position: value });
   };
 
   actions = [
@@ -25,59 +49,75 @@ class PopoverHorizontalTest extends React.Component {
   ];
 
   render () {
-    const { direction, position } = this.state;
+    const { backdrop, direction, position } = this.state;
 
     return (
-      <section>
-        <h2>Horizontal Popover</h2>
+      <article>
+        <header>
+          <h1>Horizontal Popover</h1>
+        </header>
 
-        <Button
-          primary
-          style={{ 'marginLeft': '50%' }}
-          label="Show a horizontal popover"
-          onClick={this.handleToggle}
-          ref={
-            (button) => {
-              this.popoverToggleButton = button;
-            }
-          }
-        />
+        <div className="component-spec">
+          <div className="properties">
+            <h3>Properties</h3>
 
-        <h4>Direction</h4>
-        <label>
-          <input type="radio" onChange={() => this.setState({ direction: 'west' })} checked={direction === 'west'} />
-          west
-        </label>
-        <label>
-          <input type="radio" onChange={() => this.setState({ direction: 'east' })} checked={direction === 'east'} />
-          east
-        </label>
+            <h4>Backdrop</h4>
+            <RadioGroup name="direction" value={backdrop} onChange={this.handleBackdropChange}>
+              <RadioButton label="Dark" value="dark" />
+              <RadioButton label="Transparent" value="" />
+            </RadioGroup>
 
-        <h4>Position</h4>
-        <label>
-          <input type="radio" onChange={() => this.setState({ position: 'top' })} checked={position === 'top'} />
-          top
-        </label>
-        <label>
-          <input type="radio" onChange={() => this.setState({ position: 'middle' })} checked={position === 'middle'} />
-          middle
-        </label>
-        <label>
-          <input type="radio" onChange={() => this.setState({ position: 'bottom' })} checked={position === 'bottom'} />
-          bottom
-        </label>
+            <h4>Direction</h4>
+            <RadioGroup name="direction" value={direction} onChange={this.handleDirectionChange}>
+              <RadioButton label="West" value="west" />
+              <RadioButton label="East" value="east" />
+            </RadioGroup>
+
+            <h4>Position</h4>
+            <RadioGroup name="position" value={position} onChange={this.handlePositionChange}>
+              <RadioButton label="Top" value="top" />
+              <RadioButton label="Middle" value="middle" />
+              <RadioButton label="Bottom" value="bottom" />
+            </RadioGroup>
+
+            <h4>Title</h4>
+            <p><input type="text" value={this.state.title} onChange={event => this.handleTitleChange(event)} /></p>
+
+            <h4>Subtitle</h4>
+            <p>
+              <input type="text" value={this.state.subtitle} onChange={event => this.handleSubtitleChange(event)} />
+            </p>
+          </div>
+
+          <div className="preview">
+            <h3>Preview</h3>
+
+            <Button
+              primary
+              label="Show a horizontal popover"
+              onClick={this.handleToggle}
+              ref={
+                (button) => {
+                  this.popoverToggleButton = button;
+                }
+              }
+            />
+          </div>
+        </div>
 
         { this.anchorEl &&
           <PopoverHorizontal
             actions={this.actions}
             active={this.state.active}
             anchorEl={this.anchorEl}
+            backdrop={this.state.backdrop}
             direction={this.state.direction}
             position={this.state.position}
             onCloseClick={this.handleToggle}
             onEscKeyDown={this.handleToggle}
             onOverlayClick={this.handleToggle}
-            title="My awesome Horizontal POPOVER"
+            title={this.state.title}
+            subtitle={this.state.subtitle}
           >
             <p>Here you can add popover content.</p>
             <div className="highlight">
@@ -85,8 +125,7 @@ class PopoverHorizontalTest extends React.Component {
             </div>
           </PopoverHorizontal>
         }
-        <hr />
-      </section>
+      </article>
     );
   }
 }
